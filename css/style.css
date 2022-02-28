@@ -6,5 +6,8 @@
 font-family: 'Open Sans', sans-serif;
 }
 body{
-    background-color: rgb(247, 251, 255);
+    background-color: rgb(233, 242, 252);
+}
+.logo{
+    width: 250px;
 }
