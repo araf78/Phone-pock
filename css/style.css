@@ -8,6 +8,18 @@ font-family: 'Open Sans', sans-serif;
 body{
     background-color: rgb(233, 242, 252);
 }
+.phn-pock{
+    font-weight: 700;
+    color: rgb(77, 77, 250);
+}
 .logo{
     width: 250px;
+}
+.card{
+    display: flex;
+    justify-content: center;
+}
+.card-img-top{
+    width: 200px;
+    height: 100%;
 }
