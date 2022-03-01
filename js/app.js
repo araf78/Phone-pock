@@ -1,15 +1,21 @@
+
 const loadPhones = () => {
-    const searchField = document.getElementById('search-field');
+  const searchField = document.getElementById('search-field');
+  searchField.innerHTML = '';
     const searchText = searchField.value;
     searchField.value = '';
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     fetch(url)
     .then(res => res.json())
     .then(allData => displayPhones(allData.data))
-}
+    // .catch(error => console.log(error));
+     }
+
 loadPhones();
+        //  display phones 
 const displayPhones = phones =>{
-    // console.log(phones)
+    // console.log(phones.length)
+    // if(phones.length < 20){
     const phonesDiv = document.getElementById('phones');
     phonesDiv.textContent = '';
     phones.forEach(phone =>{
@@ -22,8 +28,8 @@ const displayPhones = phones =>{
             <img  src="${phone.image}" class="card-img-top" alt="...">
           </div>
           <div class="card-body">
-            <h5 class="card-title">${phone.phone_name}</h5>
-            <p class="card-text">${phone.brand}</p>
+            <h5 class="card-title text-success"><strong>${phone.phone_name}</strong></h5>
+            <p class="card-text text-info">${phone.brand}</p>
             <button onclick='phoneDetails(${JSON.stringify(phone.slug)})' type="button" class="button px-3 py-2 text-white">More Details</button>
           </div>
         </div>
@@ -31,7 +37,12 @@ const displayPhones = phones =>{
         `
         phonesDiv.appendChild(div)
     })
-}
+ }
+// else{
+//   console.log('ok')
+// }
+// }
+// phone details information 
 const phoneDetails = phoneId =>{
     // console.log(phoneId) 
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`
@@ -39,26 +50,34 @@ const phoneDetails = phoneId =>{
     .then(res => res.json())
     .then(id => displayDetail(id.data));
 }
-const displayDetail = phoneId => {
+const displayDetail = phone => {
     // const phoneContainer = document.getElementById('phone-container');
-
     const detailsDiv = document.getElementById('detail-info');
-    detailsDiv.textContent = '';
     const div = document.createElement('div');
+    detailsDiv.textContent = '';
     div.classList.add('detail-display')
     div.innerHTML = `
-    <h5 class="text-center text-info fw-bold mt-3">Phone Detail Information </h5>
-    <div class="card h-50 shadow-sm rounded w-75 mx-auto">
+    <h5 class="text-center text-success fw-bold mt-3">Phone Detail Information </h5>
+    <div class="card detail-card m-3 h-25 shadow-sm rounded mx-auto">
           <div class="text-center mt-3">
-            <img  src="${phoneId.image}" class="card-img-top" alt="...">
+            <img  src="${phone.image}" class="card-img-top" alt="...">
           </div>
           <div class="card-body">
-            <h5 class="card-title">${phoneId.name}</h5>
-            <p class="card-text">${phoneId.brand}</p>
-            <p class="card-text">${phoneId.releaseDate}</p>
+            <h5 class="card-title text-success"><strong>${phone.name}</strong></h5>
+            <h4 class="card-text brand"><strong>${phone.brand}</strong></h4>
+            <p class="card-text"><strong><span class="detail"> Release Date:</span> ${phone?.releaseDate}</strong></p>
+            <p class="card-text"><strong ><span class="detail"> Chit Set:</span> ${phone.mainFeatures.chipSet}</p></strong>
+            <p class="text-success text-center">Sensors</p>
+            <p class="card-text"><strong ><span class="detail"> Sensors:</span> ${phone.mainFeatures.sensors}</p></strong>
+            <p class="card-text"><strong ><span class="detail"> Storage:</span> ${phone.mainFeatures.storage}</p></strong>
+            <p class="text-success text-center">Others</p>
+            <p class="card-text"><strong ><span class="detail"> Bluetooth:</span> ${phone.others.Bluetooth}</p></strong>
+            <p class="card-text"><strong ><span class="detail"> GPS:</span> ${phone.others.GPS}</p></strong>
+            <p class="card-text"><strong ><span class="detail"> WLAN:</span> ${phone.others.WLAN}</p></strong>
+            
     </div>
     
     `
     detailsDiv.appendChild(div);
-    console.log(phoneId);
+    // console.log(phone);
 }

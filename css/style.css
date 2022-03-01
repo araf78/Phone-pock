@@ -19,12 +19,20 @@ body{
     display: flex;
     justify-content: center;
 }
+.detail-card{
+    width: 65%;
+}
 .card-img-top{
     width: 150px;
     height: 220px;
 }
 .button{
     border-radius: 8px;
-    background-color: rgb(60, 145, 241);
+    background-color: rgb(25, 182, 230);
 }
-
+.detail{
+    color: rgb(99, 160, 160);
+}
+.brand{
+    color: rgb(46, 138, 145);
+}
