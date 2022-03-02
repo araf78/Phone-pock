@@ -1,4 +1,5 @@
 document.getElementById('error').style.display = 'none';
+// load phone 
 const loadPhones = () => {
   const searchField = document.getElementById('search-field');
   const searchText = searchField.value;
@@ -11,14 +12,15 @@ const loadPhones = () => {
 
         //  display phones 
 const displayPhones = phones =>{
-    // console.log(phones)
+    document.getElementById('error').style.display = 'none';
+    const displayDetail = document.getElementById('detail-info');
+    displayDetail.textContent = '';
     const phonesDiv = document.getElementById('phones');
     phonesDiv.textContent = '';
      if(phones.length == 0){
        document.getElementById('error').style.display = 'block';
     }
     phones.forEach(phone =>{
-        // console.log(phone)
         const div = document.createElement('div');
         div.innerHTML = `
         <div class="col p-4">
@@ -35,13 +37,10 @@ const displayPhones = phones =>{
       </div>
         `
         phonesDiv.appendChild(div)
-        // console.log(phone)
     })
   }
-  
 // detail information 
 const phoneDetails = phoneId =>{
-    console.log(phoneId) 
     const url = `https://openapi.programming-hero.com/api/phone/${phoneId}`
     fetch(url)
     .then(res => res.json())
@@ -49,7 +48,6 @@ const phoneDetails = phoneId =>{
 }
  const displayDetail = phone => {
      const detailsDiv = document.getElementById('detail-info');
-     console.log(detailsDiv)
      const div = document.createElement('div');
      // detailsDiv.textContent = '';
      div.classList.add('detail-display')
@@ -76,7 +74,7 @@ const phoneDetails = phoneId =>{
     
     `
      detailsDiv.appendChild(div);
-   console.log(phone);
+  //  console.log(phone);
  }
 
 
