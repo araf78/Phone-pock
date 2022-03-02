@@ -1,20 +1,25 @@
+document.getElementById('error').style.display = 'none';
+document.getElementById('show-more').style.display ='none';
 
 const loadPhones = () => {
   const searchField = document.getElementById('search-field');
-  searchField.innerHTML = '';
-    const searchText = searchField.value;
-    searchField.value = '';
+  const searchText = searchField.value;
+  searchField.value = '';
+  document.getElementById('error').style.display = 'none';
     const url = `https://openapi.programming-hero.com/api/phones?search=${searchText}`
     fetch(url)
     .then(res => res.json())
-    .then(allData => displayPhones(allData.data))
-    // .catch(error => console.log(error));
+    .then(allData => displayPhones(allData.data.slice([0],[20])))
+    .catch(error => displayError(error));
      }
-
+const displayError = error => {
+  document.getElementById('error').style.display = 'block';
+  console.log(error)
+}
 loadPhones();
         //  display phones 
 const displayPhones = phones =>{
-    // console.log(phones.length)
+    // console.log(phones)
     // if(phones.length < 20){
     const phonesDiv = document.getElementById('phones');
     phonesDiv.textContent = '';
@@ -37,6 +42,7 @@ const displayPhones = phones =>{
         `
         phonesDiv.appendChild(div)
     })
+    document.getElementById('show-more').style.display ='block';
  }
 // else{
 //   console.log('ok')
@@ -65,7 +71,7 @@ const displayDetail = phone => {
           <div class="card-body">
             <h5 class="card-title text-success"><strong>${phone.name}</strong></h5>
             <h4 class="card-text brand"><strong>${phone.brand}</strong></h4>
-            <p class="card-text"><strong><span class="detail"> Release Date:</span> ${phone?.releaseDate}</strong></p>
+            <p class="card-text"><strong><span class="detail"> Release Date:</span> ${phone.releaseDate}</strong></p>
             <p class="card-text"><strong ><span class="detail"> Chit Set:</span> ${phone.mainFeatures.chipSet}</p></strong>
             <p class="text-success text-center">Sensors</p>
             <p class="card-text"><strong ><span class="detail"> Sensors:</span> ${phone.mainFeatures.sensors}</p></strong>
@@ -79,5 +85,5 @@ const displayDetail = phone => {
     
     `
     detailsDiv.appendChild(div);
-    // console.log(phone);
+    console.log(phone);
 }
